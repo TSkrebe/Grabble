@@ -1,6 +1,9 @@
 package com.skrebe.titas.grabble;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -35,8 +38,7 @@ public class LetterActivity extends AppCompatActivity {
     private GridView gridView;
     private Set<String> dictionary;
     private TextInputLayout textInputLayout;
-    private BaseAdapter gridAdapter;
-
+    List<WordScore> gridList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,8 +70,8 @@ public class LetterActivity extends AppCompatActivity {
         autoCompleteTextView.addTextChangedListener(new AutocompleteTextChangedListener(textInputLayout));
 
         DatabaseHelper db = new DatabaseHelper(this);
-        List<WordScore> list2 = db.getLetterCounts();
-        gridAdapter = new GridViewAdapter(this, list2);
+        gridList = db.getLetterCounts();
+        BaseAdapter gridAdapter = new GridViewAdapter(this, gridList);
         gridView.setAdapter(gridAdapter);
 
     }
@@ -79,7 +81,6 @@ public class LetterActivity extends AppCompatActivity {
         String word = autoCompleteTextView.getText().toString();
         if(word.length() < 7){
             textInputLayout.setError("Word must have 7 letters");
-
             return;
         }
         if(!dictionary.contains(word)){
@@ -93,13 +94,13 @@ public class LetterActivity extends AppCompatActivity {
         int score = Helper.wordScore(word);
         autoCompleteTextView.setText("");
 
+        Snackbar.make(view, "Word " + word + " was added", Snackbar.LENGTH_LONG).setActionTextColor(Color.GREEN).show();
         DatabaseHelper db = new DatabaseHelper(this);
 
 
         db.addWord(word, score);
 
-//        wordBankAdapter.clear();
-//        wordBankAdapter.addAll(db.getLetterCounts());
+        gridView.setAdapter(new GridViewAdapter(this, db.getLetterCounts()));
 
     }
 
@@ -139,7 +140,10 @@ public class LetterActivity extends AppCompatActivity {
             case android.R.id.home:
                 this.finish();
                 return true;
-
+            case R.id.action_settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

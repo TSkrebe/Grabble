@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#96deff"
     android:gravity="center"
     >
 
@@ -9,7 +10,7 @@
         android:layout_height="match_parent"
         android:textStyle="bold"
         android:gravity="center"
-        android:textSize="30sp"
+        android:textSize="27sp"
         android:id="@+id/grid_cell_letter"
         android:layout_marginRight="10dp"
         android:textColor="@android:color/black"/>
@@ -19,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:textSize="30sp"
+        android:textSize="27sp"
         android:id="@+id/grid_cell_score"
         android:layout_toRightOf="@id/grid_cell_letter"/>
 

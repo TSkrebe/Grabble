@@ -1,4 +1,4 @@
-package com.skrebe.titas.grabble.notUsed;
+package com.skrebe.titas.grabble;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -17,11 +17,8 @@ import java.net.URL;
  */
 public class PlaceMarkParser extends AsyncTask<String, Void, KmlLayer> {
 
-    AsyncResponse asyncResponse = null;
-    //String ns = null;
-    Context c;
- //   GoogleMap map = null;
-
+    private AsyncResponse asyncResponse = null;
+    private Context c;
 
     public PlaceMarkParser(Context c){
         asyncResponse = (AsyncResponse) c;
@@ -48,9 +45,6 @@ public class PlaceMarkParser extends AsyncTask<String, Void, KmlLayer> {
     }
 
 
-    private void moveCameraToKml(KmlLayer kmlLayer) {
-
-    }
 
 
 //        String url = urls[0];

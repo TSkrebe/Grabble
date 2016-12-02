@@ -3,8 +3,12 @@ package com.skrebe.titas.grabble;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.skrebe.titas.grabble.adapters.SimpleListAdapter;
 
@@ -14,13 +18,16 @@ public class StatsActivity extends AppCompatActivity {
 
     private ListView wordList;
     private ArrayAdapter<WordScore> listAdapter;
-
+    private TextView averageScore, overallScore, numberOfWords;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.statsToolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         DatabaseHelper db = new DatabaseHelper(this);
 
         List<WordScore> wordsAndScores = db.getWordScores();
@@ -30,38 +37,25 @@ public class StatsActivity extends AppCompatActivity {
         wordList.setAdapter(listAdapter);
 
         float averagePerWord = scorePerWord(wordsAndScores);
-        WordScore minimumWordScore = minimumWordScore(wordsAndScores);
-        WordScore maximumWordScore = maximumWordScore(wordsAndScores);
+        int overall = overallScore(wordsAndScores);
         int noOfWords = wordsAndScores.size();
 
-
+        averageScore = (TextView)findViewById(R.id.averageScore);
+        averageScore.setText(averagePerWord+"");
+        overallScore = (TextView)findViewById(R.id.overallScore);
+        overallScore.setText(overall+ "");
+        numberOfWords = (TextView)findViewById(R.id.numberOfWords);
+        numberOfWords.setText(noOfWords+"");
     }
 
-
-    private WordScore maximumWordScore(List<WordScore> wordsAndScores) {
-        int score = -1;
-        WordScore wordsScore = null;
-        for(WordScore ws: wordsAndScores){
-            if(ws.getScore() < score) {
-                wordsScore = ws;
-                score = ws.getScore();
-            }
+    private int overallScore(List<WordScore> wordsAndScores) {
+        int scores = 0;
+        for (WordScore wordScore: wordsAndScores){
+            scores += wordScore.getScore();
         }
-        return wordsScore;
-
+        return scores;
     }
 
-    private WordScore minimumWordScore(List<WordScore> wordsAndScores) {
-        int score = 7*26+1;
-        WordScore wordsScore = null;
-        for(WordScore ws: wordsAndScores){
-            if(ws.getScore() < score) {
-                wordsScore = ws;
-                score = ws.getScore();
-            }
-        }
-        return wordsScore;
-    }
 
 
     private float scorePerWord(List<WordScore> wordsAndScores) {
@@ -72,5 +66,25 @@ public class StatsActivity extends AppCompatActivity {
         return score/wordsAndScores.size();
     }
 
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                this.finish();
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }

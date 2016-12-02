@@ -32,10 +32,10 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
-        </activity>
+            android:label="@string/title_activity_maps" />
         <activity
             android:name=".LetterActivity"
+            android:label="@string/title_activity_letters"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".StatsActivity"
@@ -47,8 +47,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+        <activity android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            />
     </application>
 
 </manifest>

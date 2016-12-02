@@ -6,7 +6,12 @@
     <string name="section_format">Hello World from section: %1$d</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_letters">LettersActivity</string>
-    <string name="title_activity_stats">StatsActivity</string>
+    <string name="hello_blank_fragment">Map</string>
+    <string name="title_activity_letters">Letter bank</string>
+    <string name="title_activity_stats">Statistics</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="noGPS">Turn on GPS</string>
+    <string name="baseURL">http://www.inf.ed.ac.uk/teaching/courses/selp/coursework/</string>
+    <string name="noInternetSnackbar">"No internet "</string>
+    <string name="noInternetRetry">Retry</string>
 </resources>

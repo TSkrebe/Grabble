@@ -9,17 +9,17 @@
 
 
     <Button
-        android:layout_width="100dp"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right|top"
         android:layout_marginTop="20dp"
         android:onClick="letterActivity"
         android:padding="10dp"
         android:paddingEnd="10dp"
-        android:text="Add word" />
+        android:text="Add a word" />
 
     <Button
-        android:layout_width="100dp"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right|top"
         android:onClick="statisticsActivity"
@@ -39,15 +39,15 @@
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_gravity="bottom"
+        android:layout_height="match_parent"
+
         android:id="@+id/clayout">
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_margin="15dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_gravity="right|bottom"
         android:src="@android:drawable/ic_menu_mylocation" />
     </android.support.design.widget.CoordinatorLayout>
 

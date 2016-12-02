@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.skrebe.titas.grabble.R;
@@ -54,5 +55,9 @@ public class GridViewAdapter extends BaseAdapter {
         scoreView.setText(data[1]);
 
         return row;
+    }
+
+    public void setLetters(List<WordScore> wordScores){
+        this.letters = wordScores;
     }
 }
