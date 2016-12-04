@@ -16,9 +16,6 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
-/**
- * Created by titas on 16.10.26.
- */
 public class GridViewAdapter extends BaseAdapter {
 
     private List<WordScore> letters;

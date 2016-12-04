@@ -38,7 +38,8 @@ public class LetterActivity extends AppCompatActivity {
     private GridView gridView;
     private Set<String> dictionary;
     private TextInputLayout textInputLayout;
-    List<WordScore> gridList;
+    private List<WordScore> gridList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,15 +81,15 @@ public class LetterActivity extends AppCompatActivity {
     public void addWord(View view){
         String word = autoCompleteTextView.getText().toString();
         if(word.length() < 7){
-            textInputLayout.setError("Word must have 7 letters");
+            textInputLayout.setError(getString(R.string.wordConstraint7));
             return;
         }
         if(!dictionary.contains(word)){
-            textInputLayout.setError("does not exit in the dictionary");
+            textInputLayout.setError(word + getString(R.string.wordConstraintExists));
             return;
         }
         if(!enoughLetters(word)){
-            textInputLayout.setError("Collect more letters");
+            textInputLayout.setError(getString(R.string.wordConstraintLetters));
             return;
         }
         int score = Helper.wordScore(word);
@@ -116,7 +117,6 @@ public class LetterActivity extends AppCompatActivity {
 
         for (Map.Entry<String, Integer> e : mapWord.entrySet()){
             int charCount = e.getValue();
-            Log.e("KEY", e.getKey());
             if(mapDB.get(e.getKey()) < charCount){
                 Log.e("COUNT", e.getKey() + " " + mapDB.get(e.getKey()) + " " + charCount);
                 return false;

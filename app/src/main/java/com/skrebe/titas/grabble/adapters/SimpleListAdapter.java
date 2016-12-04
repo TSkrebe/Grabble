@@ -16,9 +16,7 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
-/**
- * Created by titas on 16.10.1.
- */
+
 public class SimpleListAdapter extends ArrayAdapter<WordScore> {
 
     private Context context;

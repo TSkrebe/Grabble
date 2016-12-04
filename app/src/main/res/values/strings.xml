@@ -14,4 +14,7 @@
     <string name="baseURL">http://www.inf.ed.ac.uk/teaching/courses/selp/coursework/</string>
     <string name="noInternetSnackbar">"No internet "</string>
     <string name="noInternetRetry">Retry</string>
+    <string name="wordConstraint7">A word must have 7 letters</string>
+    <string name="wordConstraintExists">" does not exit in the dictionary"</string>
+    <string name="wordConstraintLetters">Collect more letters</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.skrebe.titas.grabble;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,9 +17,6 @@ import java.util.List;
 
 public class StatsActivity extends AppCompatActivity {
 
-    private ListView wordList;
-    private ArrayAdapter<WordScore> listAdapter;
-    private TextView averageScore, overallScore, numberOfWords;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,19 +30,21 @@ public class StatsActivity extends AppCompatActivity {
 
         List<WordScore> wordsAndScores = db.getWordScores();
 
-        wordList = (ListView)findViewById(R.id.wordList);
-        listAdapter = new SimpleListAdapter(this, R.layout.simple_list_layout_item, wordsAndScores);
+        ListView wordList = (ListView) findViewById(R.id.wordList);
+        ArrayAdapter<WordScore> listAdapter = new SimpleListAdapter(this, R.layout.simple_list_layout_item, wordsAndScores);
         wordList.setAdapter(listAdapter);
 
         float averagePerWord = scorePerWord(wordsAndScores);
         int overall = overallScore(wordsAndScores);
         int noOfWords = wordsAndScores.size();
 
-        averageScore = (TextView)findViewById(R.id.averageScore);
+        TextView averageScore = (TextView) findViewById(R.id.averageScore);
         averageScore.setText(averagePerWord+"");
-        overallScore = (TextView)findViewById(R.id.overallScore);
+
+        TextView overallScore = (TextView) findViewById(R.id.overallScore);
         overallScore.setText(overall+ "");
-        numberOfWords = (TextView)findViewById(R.id.numberOfWords);
+
+        TextView numberOfWords = (TextView) findViewById(R.id.numberOfWords);
         numberOfWords.setText(noOfWords+"");
     }
 
@@ -82,9 +82,13 @@ public class StatsActivity extends AppCompatActivity {
             case android.R.id.home:
                 this.finish();
                 return true;
-
+            case R.id.action_settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
         }
         return super.onOptionsItemSelected(item);
+
     }
 
 }

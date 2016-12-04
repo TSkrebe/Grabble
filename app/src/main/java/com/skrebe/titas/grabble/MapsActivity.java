@@ -55,7 +55,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Circle userCircle = null;
     private Map<String, Marker> markers = new HashMap<>();
     private LatLng focusPoint = new LatLng(55.943729, -3.188536);
+
+
     private static final float ZOOM_LEVEL = 15.5f;
+
+    private static final int LOCATION_CHECK_INTERVAL = 5000; //in millis
+    private static final int LOCATION_CHECK_FASTEST_INTERVAL = 3000; //in millis
+
+    private static final int LETTER_ANIMATION_START_OFFSET = 1000; //in millis
+    private static final int LETTER_ANIMATION_DURATION = 2000; //in millis
+
+
     private TextView popUp;
     private AnimationSet animation;
 
@@ -80,8 +90,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mLocationRequest = LocationRequest.create();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setInterval(5000);
-        mLocationRequest.setFastestInterval(3000);
+        mLocationRequest.setInterval(LOCATION_CHECK_INTERVAL);
+        mLocationRequest.setFastestInterval(LOCATION_CHECK_FASTEST_INTERVAL);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -93,7 +103,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         myFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if(userMarker != null && mMap != null) {
-                    mMap.animateCamera(CameraUpdateFactory.newLatLng(userMarker.getPosition()));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userMarker.getPosition(), ZOOM_LEVEL));
                 }else{
                     Snackbar.make(findViewById(R.id.clayout), R.string.noGPS, Snackbar.LENGTH_LONG).show();
                 }
@@ -130,8 +140,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Letter fades away
         Animation fadeOut = new AlphaAnimation(1, 0);
-        fadeOut.setStartOffset(1000);
-        fadeOut.setDuration(2000);
+        fadeOut.setStartOffset(LETTER_ANIMATION_START_OFFSET);
+        fadeOut.setDuration(LETTER_ANIMATION_DURATION);
 
         animation.addAnimation(scale);
         animation.addAnimation(fadeOut);
@@ -162,7 +172,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             editor.apply();
             Log.e("MAPS", "NEW");
             try {
-                markMap(currentDate.get(Calendar.DAY_OF_WEEK));
+                downloadMap(currentDate.get(Calendar.DAY_OF_WEEK));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -194,7 +204,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    private void markMap(int day) throws IOException {
+    private void downloadMap(int day) throws IOException {
         String dayInString = Helper.getDayInString(day);
         String baseUrl = getString(R.string.baseURL);
         String fullUrl = baseUrl + dayInString + ".kml";
@@ -228,7 +238,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             });
             snackbar.show();
             return;
-
         }
 
         DatabaseHelper db = new DatabaseHelper(this);
@@ -238,7 +247,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Marker marker = mMap.addMarker(new MarkerOptions()
                     .position(coor)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_red))
-                    .title(mark.getProperty("description")));
+                    .title(" " + mark.getProperty("description")));
             String name = mark.getProperty("name");
             db.insertLocationPoint(marker, name);
             markers.put(name, marker);
@@ -268,7 +277,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         startActivity(newIntent);
     }
 
+
     //GPS SERVICES BELLOW
+
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {

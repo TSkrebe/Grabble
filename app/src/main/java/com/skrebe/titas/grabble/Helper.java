@@ -2,11 +2,7 @@ package com.skrebe.titas.grabble;
 
 import java.util.Calendar;
 
-/**
- * Created by titas on 16.9.30.
- */
 public class Helper {
-
 
     public static int wordScore(String word){
         word = word.toLowerCase().trim();

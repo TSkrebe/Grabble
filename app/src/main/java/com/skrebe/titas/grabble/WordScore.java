@@ -1,8 +1,5 @@
 package com.skrebe.titas.grabble;
 
-/**
- * Created by titas on 16.10.1.
- */
 public class WordScore {
     private String word;
     private int score;

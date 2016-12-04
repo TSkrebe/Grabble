@@ -24,9 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by titas on 16.9.29.
- */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TEXT_TYPE = " TEXT";
@@ -57,8 +54,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + LocationPointEntity.TABLE_NAME;
 
-    public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "LocationsPoint.db";
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "LocationsPoint.db";
 
 
     public DatabaseHelper(Context context) {
@@ -102,7 +99,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void getAllMarkerOptions(GoogleMap map, Map<String, Marker> markers){
       //  List<MarkerOptions> markers = new ArrayList<>();
         Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + LocationPointEntity.TABLE_NAME, null);
-        Log.e("HERETOO", cursor.getCount()+"");
 
         while(cursor.moveToNext()){
             String letter = cursor.getString(cursor.getColumnIndex(LocationPointEntity.COlUMN_NAME_LETTER));
@@ -118,7 +114,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Marker marker = map.addMarker(new MarkerOptions()
                     .position(new LatLng(latitude, longitude))
                     .icon(bd)
-                    .title(" " + letter));  //space for centering letter
+                    .title(letter));  //space for centering letter
             //load to memory
             markers.put(name, marker);
         }
@@ -184,15 +180,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.e("KEYMAP", cursor.getCount()+"");
 
         while(cursor.moveToNext()){
-            //  Log.w();
             Log.e("KEYMAP", cursor.getString(0));
             map.put(cursor.getString(0), cursor.getInt(1));
-           // nicestr += "letter: " + cursor.getString(0) + " " + cursor.getInt(1) + "\n";
         }
         cursor.close();
         db.close();
         return map;
     }
+
     public String printalllettercount(){
         String nicestr = "";
         SQLiteDatabase db = getReadableDatabase();
