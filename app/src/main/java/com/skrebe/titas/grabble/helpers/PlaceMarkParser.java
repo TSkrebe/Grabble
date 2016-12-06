@@ -1,4 +1,4 @@
-package com.skrebe.titas.grabble;
+package com.skrebe.titas.grabble.helpers;
 
 import android.app.ProgressDialog;
 import android.content.Context;

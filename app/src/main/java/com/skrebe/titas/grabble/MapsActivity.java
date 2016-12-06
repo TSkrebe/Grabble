@@ -1,7 +1,6 @@
 package com.skrebe.titas.grabble;
 
 import android.Manifest;
-import android.app.UiModeManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -22,7 +21,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -40,6 +38,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.kml.KmlLayer;
 import com.google.maps.android.kml.KmlPlacemark;
+import com.skrebe.titas.grabble.helpers.Helper;
+import com.skrebe.titas.grabble.helpers.PlaceMarkParser;
 import com.skrebe.titas.grabble.listeners.PopUpAnimationListener;
 
 import java.io.IOException;

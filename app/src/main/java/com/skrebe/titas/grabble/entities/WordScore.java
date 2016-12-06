@@ -1,4 +1,4 @@
-package com.skrebe.titas.grabble;
+package com.skrebe.titas.grabble.entities;
 
 public class WordScore {
     private String word;

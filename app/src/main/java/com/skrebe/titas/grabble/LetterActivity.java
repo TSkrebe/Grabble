@@ -13,11 +13,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.BaseAdapter;
 import android.widget.GridView;
 
 import com.skrebe.titas.grabble.adapters.GridViewAdapter;
+import com.skrebe.titas.grabble.entities.WordScore;
+import com.skrebe.titas.grabble.helpers.Helper;
 import com.skrebe.titas.grabble.listeners.AutocompleteTextChangedListener;
 
 import java.io.BufferedReader;

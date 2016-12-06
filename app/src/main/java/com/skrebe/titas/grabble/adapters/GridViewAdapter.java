@@ -1,23 +1,15 @@
 package com.skrebe.titas.grabble.adapters;
 
 import android.content.Context;
-import android.text.Editable;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.skrebe.titas.grabble.CustomAutoTextView;
 import com.skrebe.titas.grabble.R;
-import com.skrebe.titas.grabble.WordScore;
-
-import org.w3c.dom.Text;
+import com.skrebe.titas.grabble.entities.WordScore;
 
 import java.util.List;
 

@@ -18,6 +18,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.skrebe.titas.grabble.entities.LetterEntity;
 import com.skrebe.titas.grabble.entities.LocationPointEntity;
 import com.skrebe.titas.grabble.entities.WordEntity;
+import com.skrebe.titas.grabble.entities.WordScore;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.skrebe.titas.grabble.adapters.SimpleListAdapter;
+import com.skrebe.titas.grabble.entities.WordScore;
 
 import java.util.List;
 

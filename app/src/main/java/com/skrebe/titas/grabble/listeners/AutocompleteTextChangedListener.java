@@ -1,15 +1,10 @@
 package com.skrebe.titas.grabble.listeners;
 
-import android.content.Context;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.widget.AutoCompleteTextView;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
 
-import com.skrebe.titas.grabble.CustomAutoTextView;
-import com.skrebe.titas.grabble.WordScore;
+import com.skrebe.titas.grabble.entities.WordScore;
 import com.skrebe.titas.grabble.adapters.GridViewAdapter;
 
 import java.util.ArrayList;
@@ -46,7 +41,9 @@ public class AutocompleteTextChangedListener implements TextWatcher {
         gridAdapter.notifyDataSetChanged();
     }
 
-
+    /**
+     * Returns current situation of number of letters available
+     */
     private List<WordScore> liveList(List<WordScore> gridList, String s) {
         s = s.toLowerCase();
         List<WordScore> liveList = new ArrayList<>();

@@ -1,4 +1,4 @@
-package com.skrebe.titas.grabble;
+package com.skrebe.titas.grabble.helpers;
 
 import java.util.Calendar;
 
