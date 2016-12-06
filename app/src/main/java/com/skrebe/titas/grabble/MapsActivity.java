@@ -259,6 +259,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("consistentState", true);
         editor.putLong("lastDate", Calendar.getInstance().getTimeInMillis());
+        editor.putInt("daysPlayed", prefs.getInt("daysPlayed", 0) + 1);
         editor.apply();
     }
 

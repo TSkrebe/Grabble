@@ -24,6 +24,7 @@ public class CustomAutoTextView extends AutoCompleteTextView {
     }
 
     public void insertProgrammatically(View v) {
+
         ListAdapter adapter = getAdapter();
         setAdapter(null);
         String letter = ((TextView)v.findViewById(R.id.grid_cell_letter)).getText().toString();

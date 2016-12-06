@@ -48,6 +48,7 @@ public class GridViewAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 textView.insertProgrammatically(v);
+
             }
         });
         String[] data = letters.get(position).toString().split("=");

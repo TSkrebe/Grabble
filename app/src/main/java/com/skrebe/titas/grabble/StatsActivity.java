@@ -2,6 +2,7 @@ package com.skrebe.titas.grabble;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -35,9 +36,11 @@ public class StatsActivity extends AppCompatActivity {
         ArrayAdapter<WordScore> listAdapter = new SimpleListAdapter(this, R.layout.simple_list_layout_item, wordsAndScores);
         wordList.setAdapter(listAdapter);
 
-        float averagePerWord = scorePerWord(wordsAndScores);
         int overall = overallScore(wordsAndScores);
         int noOfWords = wordsAndScores.size();
+        int noOfDays = PreferenceManager.getDefaultSharedPreferences(this).getInt("daysPlayed", 1);
+        float averagePerWord = (float)overall/noOfWords;
+        float averagePerDay = (float)overall/noOfDays;
 
         TextView averageScore = (TextView) findViewById(R.id.averageScore);
         averageScore.setText(averagePerWord+"");
@@ -47,6 +50,14 @@ public class StatsActivity extends AppCompatActivity {
 
         TextView numberOfWords = (TextView) findViewById(R.id.numberOfWords);
         numberOfWords.setText(noOfWords+"");
+
+        TextView daysPlayed = (TextView) findViewById(R.id.daysPlayed);
+        daysPlayed.setText(noOfDays+"");
+
+        TextView averageDayScore = (TextView) findViewById(R.id.averageDayScore);
+        averageDayScore.setText(averagePerDay+"");
+
+
     }
 
     private int overallScore(List<WordScore> wordsAndScores) {
@@ -56,17 +67,6 @@ public class StatsActivity extends AppCompatActivity {
         }
         return scores;
     }
-
-
-
-    private float scorePerWord(List<WordScore> wordsAndScores) {
-        float score = 0;
-        for(WordScore wordScore: wordsAndScores){
-            score += wordScore.getScore();
-        }
-        return score/wordsAndScores.size();
-    }
-
 
 
     @Override
