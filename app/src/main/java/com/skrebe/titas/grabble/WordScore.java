@@ -27,6 +27,6 @@ public class WordScore {
 
     @Override
     public String toString() {
-        return word.toUpperCase() + "-" + score;
+        return word.toUpperCase() + "=" + score;
     }
 }

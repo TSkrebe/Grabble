@@ -1,14 +1,19 @@
 package com.skrebe.titas.grabble.adapters;
 
 import android.content.Context;
+import android.text.Editable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import com.skrebe.titas.grabble.CustomAutoTextView;
 import com.skrebe.titas.grabble.R;
 import com.skrebe.titas.grabble.WordScore;
 
@@ -20,9 +25,12 @@ public class GridViewAdapter extends BaseAdapter {
 
     private List<WordScore> letters;
     private Context context;
-    public GridViewAdapter(Context context, List<WordScore> letters){
+    private CustomAutoTextView textView;
+
+    public GridViewAdapter(Context context, List<WordScore> letters, CustomAutoTextView autoCompleteTextView){
         this.letters = letters;
         this.context = context;
+        this.textView = autoCompleteTextView;
     }
 
     @Override
@@ -44,8 +52,13 @@ public class GridViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View row = inflater.inflate(R.layout.grid_view_item, parent, false);
-
-        String[] data = letters.get(position).toString().split("-");
+        row.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textView.insertProgrammatically(v);
+            }
+        });
+        String[] data = letters.get(position).toString().split("=");
         TextView letterView = (TextView)row.findViewById(R.id.grid_cell_letter);
         letterView.setText(data[0]);
         TextView scoreView = (TextView)row.findViewById(R.id.grid_cell_score);

@@ -47,6 +47,8 @@ public class Helper {
                 return 4;
             case 'p':
                 return 19;
+            case 'q':
+                return 24;
             case 'r':
                 return 8;
             case 's':

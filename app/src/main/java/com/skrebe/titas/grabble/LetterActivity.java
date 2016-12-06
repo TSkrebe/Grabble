@@ -34,7 +34,7 @@ import java.util.Set;
 public class LetterActivity extends AppCompatActivity {
 
 
-    private AutoCompleteTextView autoCompleteTextView;
+    private CustomAutoTextView autoCompleteTextView;
     private GridView gridView;
     private Set<String> dictionary;
     private TextInputLayout textInputLayout;
@@ -64,16 +64,18 @@ public class LetterActivity extends AppCompatActivity {
         dictionary = new HashSet<>(words);
 
         gridView = (GridView)findViewById(R.id.gridview);
-        autoCompleteTextView = (AutoCompleteTextView)findViewById(R.id.autoCompleteTextView);
+        autoCompleteTextView = (CustomAutoTextView)findViewById(R.id.autoCompleteTextView);
         textInputLayout = (TextInputLayout) findViewById(R.id.text_input_layout);
         ArrayAdapter<String> autoCompleteAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, words);
         autoCompleteTextView.setAdapter(autoCompleteAdapter);
-        autoCompleteTextView.addTextChangedListener(new AutocompleteTextChangedListener(textInputLayout));
 
         DatabaseHelper db = new DatabaseHelper(this);
         gridList = db.getLetterCounts();
-        BaseAdapter gridAdapter = new GridViewAdapter(this, gridList);
+        GridViewAdapter gridAdapter = new GridViewAdapter(this, gridList, autoCompleteTextView);
         gridView.setAdapter(gridAdapter);
+
+        autoCompleteTextView.addTextChangedListener(new AutocompleteTextChangedListener(textInputLayout, gridList, gridAdapter));
+
 
     }
 
@@ -101,7 +103,7 @@ public class LetterActivity extends AppCompatActivity {
 
         db.addWord(word, score);
 
-        gridView.setAdapter(new GridViewAdapter(this, db.getLetterCounts()));
+        gridView.setAdapter(new GridViewAdapter(this, db.getLetterCounts(), autoCompleteTextView));
 
     }
 

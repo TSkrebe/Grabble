@@ -23,7 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right|top"
         android:onClick="statisticsActivity"
-
         android:layout_marginTop="70dp"
         android:padding="10dp"
         android:paddingEnd="10dp"

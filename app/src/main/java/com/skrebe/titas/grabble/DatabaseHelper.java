@@ -84,7 +84,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(LocationPointEntity.COLUMN_NAME_LATITUDE, marker.getPosition().latitude);
         cv.put(LocationPointEntity.COLUMN_NAME_LONGITUDE, marker.getPosition().longitude);
-        cv.put(LocationPointEntity.COlUMN_NAME_LETTER, marker.getTitle());
+        cv.put(LocationPointEntity.COlUMN_NAME_LETTER, marker.getTitle().trim());
         cv.put(LocationPointEntity.COlUMN_NAME_NAME, name);
         cv.put(LocationPointEntity.COLUMN_NAME_VISITED, 0);
         return getWritableDatabase().insert(LocationPointEntity.TABLE_NAME, null, cv);
@@ -122,6 +122,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void setLocationPointVisited(String name, TextView popUp, AnimationSet animation) {
+        Log.e("NAME", name);
         SQLiteDatabase db = getWritableDatabase();
         //Find location point
         Cursor c = db.query(LocationPointEntity.TABLE_NAME,
@@ -131,6 +132,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.moveToNext();
         int visited = c.getInt(0);
         String letter = c.getString(1);
+        Log.e("VISITED", visited+"");
+        Log.e("LETTER", letter);
         c.close();
         //if not visited make visited and add picked letter
         if(visited == 0){
@@ -168,6 +171,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 LetterEntity.COLUMN_NAME_LETTER + " = ?",
                 new String[]{letter}, null, null, null);
         cursor.moveToNext();
+        Log.e("ERROROR count", "|" + letter + "|");
         int count = cursor.getInt(0);
         cursor.close();
         return count;
