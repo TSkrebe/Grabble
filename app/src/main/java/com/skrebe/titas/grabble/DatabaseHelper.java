@@ -81,14 +81,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public long insertLocationPoint(Marker marker, String name){
-        ContentValues cv = new ContentValues();
-        cv.put(LocationPointEntity.COLUMN_NAME_LATITUDE, marker.getPosition().latitude);
-        cv.put(LocationPointEntity.COLUMN_NAME_LONGITUDE, marker.getPosition().longitude);
-        cv.put(LocationPointEntity.COlUMN_NAME_LETTER, marker.getTitle().trim());
-        cv.put(LocationPointEntity.COlUMN_NAME_NAME, name);
-        cv.put(LocationPointEntity.COLUMN_NAME_VISITED, 0);
-        return getWritableDatabase().insert(LocationPointEntity.TABLE_NAME, null, cv);
+    public void insertLocationPoints(Map<String, Marker> markers){
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+        try {
+            for (Map.Entry<String, Marker> e : markers.entrySet()) {
+                Marker marker = e.getValue();
+                String name = e.getKey();
+                ContentValues cv = new ContentValues();
+                cv.put(LocationPointEntity.COLUMN_NAME_LATITUDE, marker.getPosition().latitude);
+                cv.put(LocationPointEntity.COLUMN_NAME_LONGITUDE, marker.getPosition().longitude);
+                cv.put(LocationPointEntity.COlUMN_NAME_LETTER, marker.getTitle().trim());
+                cv.put(LocationPointEntity.COlUMN_NAME_NAME, name);
+                cv.put(LocationPointEntity.COLUMN_NAME_VISITED, 0);
+                db.insert(LocationPointEntity.TABLE_NAME, null, cv);
+            }
+            db.setTransactionSuccessful();
+        }catch (Exception e){
+            Log.e("ERROR DB", e.toString());
+        }finally {
+            db.endTransaction();
+        }
+
     }
 
 
@@ -115,7 +129,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Marker marker = map.addMarker(new MarkerOptions()
                     .position(new LatLng(latitude, longitude))
                     .icon(bd)
-                    .title(letter));  //space for centering letter
+                    .title(" " + letter));  //space for centering letter
             //load to memory
             markers.put(name, marker);
         }

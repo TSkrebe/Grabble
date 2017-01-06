@@ -239,7 +239,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             snackbar.show();
             return;
         }
-
+        long time = System.currentTimeMillis();
+        Log.e("Start", 0+"");
         DatabaseHelper db = new DatabaseHelper(this);
         db.deleteLocationPoints();
         for (KmlPlacemark mark : layer.getPlacemarks()) {
@@ -249,10 +250,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_red))
                     .title(" " + mark.getProperty("description")));
             String name = mark.getProperty("name");
-            db.insertLocationPoint(marker, name);
             markers.put(name, marker);
         }
 
+        db.insertLocationPoints(markers);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(focusPoint, ZOOM_LEVEL));
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -352,7 +353,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 markPosition.setLongitude(marker.getPosition().longitude);
                 float distance = location.distanceTo(markPosition);
 
-                if (distance < 500) {
+                if (distance <= radius) {
                     marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_blue));
                     db.setLocationPointVisited(name, popUp, animation);
                 }

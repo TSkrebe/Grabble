@@ -82,13 +82,13 @@
                 android:layout_below="@id/overallScoreLabel"
                 android:textSize="15sp" />
 
+
             <TextView
                 android:id="@+id/numberOfWordsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/overallScore"
-
                 android:text="Number of words"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
@@ -103,13 +103,14 @@
                 android:layout_below="@id/numberOfWordsLabel"
                 android:textSize="15sp" />
 
+
+
             <TextView
                 android:id="@+id/averageScoreLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/numberOfWords"
-
                 android:text="Avg score p/w"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
@@ -123,34 +124,18 @@
                 android:textStyle="bold"
                 android:layout_below="@id/averageScoreLabel"
                 android:textSize="15sp" />
-            <TextView
-                android:id="@+id/averageDayScoreLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/averageScoreLabel"
-                android:layout_marginTop="20dp"
-                android:text="Days played"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/averageDayScore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/averageDayScoreLabel"
-                android:textSize="15sp" />
+
+
 
             <TextView
                 android:id="@+id/daysPlayedLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_below="@id/averageDayScore"
-                android:text="Avg score p/w"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/averageScore"
+                android:text="Days played"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -165,6 +150,26 @@
                 android:text="0"
                 android:textSize="15sp" />
 
+
+            <TextView
+                android:id="@+id/averageDayScoreLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/daysPlayed"
+                android:text="Avg score p/d"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/averageDayScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/averageDayScoreLabel"
+                android:textSize="15sp" />
 
 
 
