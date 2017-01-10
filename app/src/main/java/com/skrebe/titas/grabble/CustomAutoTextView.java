@@ -28,7 +28,14 @@ public class CustomAutoTextView extends AutoCompleteTextView {
         ListAdapter adapter = getAdapter();
         setAdapter(null);
         String letter = ((TextView)v.findViewById(R.id.grid_cell_letter)).getText().toString();
-        getText().insert(getSelectionStart(), letter.toLowerCase());
+
+        if(letter.equals("<-")){    //delete character
+            if(getSelectionStart() != 0) {
+                getText().delete(getSelectionStart() - 1, getSelectionStart());
+            }
+        }else{                      //add character
+            getText().insert(getSelectionStart(), letter.toLowerCase());
+        }
         setAdapter((ArrayAdapter)adapter);
     }
 }

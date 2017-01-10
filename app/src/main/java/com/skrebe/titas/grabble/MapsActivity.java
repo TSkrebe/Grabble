@@ -336,12 +336,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         userCircle = mMap.addCircle(new CircleOptions()
                 .center(userMarker.getPosition())
                 .radius(radius)
-                .fillColor(Color.argb(150, 64, 64, 64))
-                .strokeColor(Color.argb(150, 64, 64, 64)));
+                .strokeWidth(0)
+                .fillColor(Color.argb(150, 64, 64, 64)));
 
         boolean consistentState = prefs.getBoolean("consistentState", false);
 
-        //if everything is OK with APP loop all points and check if any of them are within 10 meters
+        //if everything is OK with APP loop all points and check if any of them are within xx meters
         if (consistentState) {
 
             DatabaseHelper db = new DatabaseHelper(this);
@@ -352,7 +352,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 markPosition.setLatitude(marker.getPosition().latitude);
                 markPosition.setLongitude(marker.getPosition().longitude);
                 float distance = location.distanceTo(markPosition);
-
                 if (distance <= radius) {
                     marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_blue));
                     db.setLocationPointVisited(name, popUp, animation);

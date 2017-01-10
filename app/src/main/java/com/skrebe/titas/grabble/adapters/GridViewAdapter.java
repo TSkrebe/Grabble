@@ -18,11 +18,13 @@ public class GridViewAdapter extends BaseAdapter {
     private List<WordScore> letters;
     private Context context;
     private CustomAutoTextView textView;
-
+    private int size;
     public GridViewAdapter(Context context, List<WordScore> letters, CustomAutoTextView autoCompleteTextView){
         this.letters = letters;
         this.context = context;
         this.textView = autoCompleteTextView;
+        this.letters.add(new WordScore("<-", -1));
+        this.size = letters.size();
     }
 
     @Override
@@ -42,6 +44,7 @@ public class GridViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View row = inflater.inflate(R.layout.grid_view_item, parent, false);
         row.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +59,9 @@ public class GridViewAdapter extends BaseAdapter {
         letterView.setText(data[0]);
         TextView scoreView = (TextView)row.findViewById(R.id.grid_cell_score);
         scoreView.setText(data[1]);
+
+        if(size == position+1)
+            scoreView.setText("");
 
         return row;
     }

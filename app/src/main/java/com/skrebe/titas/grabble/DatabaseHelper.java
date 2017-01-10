@@ -147,8 +147,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.moveToNext();
         int visited = c.getInt(0);
         String letter = c.getString(1);
-        Log.e("VISITED", visited+"");
-        Log.e("LETTER", letter);
         c.close();
         //if not visited make visited and add picked letter
         if(visited == 0){
