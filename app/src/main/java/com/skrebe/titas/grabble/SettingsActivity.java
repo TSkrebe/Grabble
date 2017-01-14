@@ -1,11 +1,10 @@
 package com.skrebe.titas.grabble;
 
+import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
 

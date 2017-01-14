@@ -1,7 +1,6 @@
 package com.skrebe.titas.grabble;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ArrayAdapter;

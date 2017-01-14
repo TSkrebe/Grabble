@@ -112,7 +112,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     public void getAllMarkerOptions(GoogleMap map, Map<String, Marker> markers){
-      //  List<MarkerOptions> markers = new ArrayList<>();
         Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + LocationPointEntity.TABLE_NAME, null);
 
         while(cursor.moveToNext()){
@@ -173,7 +172,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(LetterEntity.COLUMN_NAME_LETTER, letter);
         cv.put(LetterEntity.COLUMN_NAME_COUNT, count+amount);
-        long d = db.update(LetterEntity.TABLE_NAME, cv, LetterEntity.COLUMN_NAME_LETTER + " = ? ", new String[]{letter});
+        db.update(LetterEntity.TABLE_NAME, cv, LetterEntity.COLUMN_NAME_LETTER + " = ? ", new String[]{letter});
     }
 
 

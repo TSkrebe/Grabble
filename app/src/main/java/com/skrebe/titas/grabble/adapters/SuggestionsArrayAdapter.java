@@ -2,19 +2,15 @@ package com.skrebe.titas.grabble.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 
 import com.skrebe.titas.grabble.entities.WordScore;
 
-import org.apache.commons.collections4.Trie;
 import org.apache.commons.collections4.trie.PatriciaTrie;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.SortedMap;
 
 /**

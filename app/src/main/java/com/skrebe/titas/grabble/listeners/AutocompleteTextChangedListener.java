@@ -4,8 +4,8 @@ import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-import com.skrebe.titas.grabble.entities.WordScore;
 import com.skrebe.titas.grabble.adapters.GridViewAdapter;
+import com.skrebe.titas.grabble.entities.WordScore;
 
 import java.util.ArrayList;
 import java.util.List;
