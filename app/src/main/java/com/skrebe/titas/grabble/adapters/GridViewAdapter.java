@@ -19,11 +19,11 @@ public class GridViewAdapter extends BaseAdapter {
     private Context context;
     private CustomAutoTextView textView;
     private int size;
+
     public GridViewAdapter(Context context, List<WordScore> letters, CustomAutoTextView autoCompleteTextView){
         this.letters = letters;
         this.context = context;
         this.textView = autoCompleteTextView;
-        this.letters.add(new WordScore("<-", -1));
         this.size = letters.size();
     }
 
@@ -55,11 +55,13 @@ public class GridViewAdapter extends BaseAdapter {
             }
         });
         String[] data = letters.get(position).toString().split("=");
+
         TextView letterView = (TextView)row.findViewById(R.id.grid_cell_letter);
         letterView.setText(data[0]);
+
         TextView scoreView = (TextView)row.findViewById(R.id.grid_cell_score);
         scoreView.setText(data[1]);
-
+        //delete button
         if(size == position+1)
             scoreView.setText("");
 
@@ -69,4 +71,6 @@ public class GridViewAdapter extends BaseAdapter {
     public void setLetters(List<WordScore> wordScores){
         this.letters = wordScores;
     }
+
+
 }

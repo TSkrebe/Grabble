@@ -252,8 +252,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             String name = mark.getProperty("name");
             markers.put(name, marker);
         }
+        Log.e("befor", System.currentTimeMillis()-time+"");
 
         db.insertLocationPoints(markers);
+        Log.e("after", System.currentTimeMillis()-time+"");
+
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(focusPoint, ZOOM_LEVEL));
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -352,7 +355,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 markPosition.setLatitude(marker.getPosition().latitude);
                 markPosition.setLongitude(marker.getPosition().longitude);
                 float distance = location.distanceTo(markPosition);
-                if (distance <= radius) {
+                if (distance <= 500) {
                     marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_blue));
                     db.setLocationPointVisited(name, popUp, animation);
                 }

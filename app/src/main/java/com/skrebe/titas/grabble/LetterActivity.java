@@ -16,9 +16,13 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 
 import com.skrebe.titas.grabble.adapters.GridViewAdapter;
+import com.skrebe.titas.grabble.adapters.SuggestionsArrayAdapter;
 import com.skrebe.titas.grabble.entities.WordScore;
 import com.skrebe.titas.grabble.helpers.Helper;
 import com.skrebe.titas.grabble.listeners.AutocompleteTextChangedListener;
+
+import org.apache.commons.collections4.Trie;
+import org.apache.commons.collections4.trie.PatriciaTrie;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,9 +40,12 @@ public class LetterActivity extends AppCompatActivity {
 
     private CustomAutoTextView autoCompleteTextView;
     private GridView gridView;
-    private Set<String> dictionary;
     private TextInputLayout textInputLayout;
     private List<WordScore> gridList;
+    private PatriciaTrie<String> words;
+    private GridViewAdapter gridAdapter;
+    private ArrayAdapter<String> autoCompleteAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,30 +59,31 @@ public class LetterActivity extends AppCompatActivity {
         InputStream inputStream = getResources().openRawResource(R.raw.grabble);
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-        List<String> words = new ArrayList<>();
+        words = new PatriciaTrie<>();
         String line;
         try {
             while((line = bufferedReader.readLine()) != null){
-                words.add(line);
+                words.put(line, "");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        dictionary = new HashSet<>(words);
 
         gridView = (GridView)findViewById(R.id.gridview);
         autoCompleteTextView = (CustomAutoTextView)findViewById(R.id.autoCompleteTextView);
         textInputLayout = (TextInputLayout) findViewById(R.id.text_input_layout);
-        ArrayAdapter<String> autoCompleteAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, words);
-        autoCompleteTextView.setAdapter(autoCompleteAdapter);
 
         DatabaseHelper db = new DatabaseHelper(this);
         gridList = db.getLetterCounts();
-        GridViewAdapter gridAdapter = new GridViewAdapter(this, gridList, autoCompleteTextView);
+        gridList.add(new WordScore("<-", 0));
+
+        gridAdapter = new GridViewAdapter(this, gridList, autoCompleteTextView);
         gridView.setAdapter(gridAdapter);
 
-        autoCompleteTextView.addTextChangedListener(new AutocompleteTextChangedListener(textInputLayout, gridList, gridAdapter));
+        autoCompleteAdapter = new SuggestionsArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, words, gridList);
+        autoCompleteTextView.setAdapter(autoCompleteAdapter);
 
+        autoCompleteTextView.addTextChangedListener(new AutocompleteTextChangedListener(textInputLayout, gridList, gridAdapter));
 
     }
 
@@ -86,7 +94,7 @@ public class LetterActivity extends AppCompatActivity {
             textInputLayout.setError(getString(R.string.wordConstraint7));
             return;
         }
-        if(!dictionary.contains(word)){
+        if(words.get(word) == null){
             textInputLayout.setError(word + getString(R.string.wordConstraintExists));
             return;
         }
@@ -100,12 +108,18 @@ public class LetterActivity extends AppCompatActivity {
         Snackbar.make(view, "Word " + word + " was added", Snackbar.LENGTH_LONG).setActionTextColor(Color.GREEN).show();
         DatabaseHelper db = new DatabaseHelper(this);
 
-
         db.addWord(word, score);
 
-        gridView.setAdapter(new GridViewAdapter(this, db.getLetterCounts(), autoCompleteTextView));
+        gridList.clear();
+        gridList.addAll(db.getLetterCounts());
+        gridList.add(new WordScore("<-", 0));
 
+        gridAdapter.notifyDataSetChanged();
+        autoCompleteAdapter.notifyDataSetChanged();
+        gridAdapter.setLetters(gridList);
+        gridView.invalidateViews();
     }
+
 
     private boolean enoughLetters(String word) {
         word = word.toLowerCase();
