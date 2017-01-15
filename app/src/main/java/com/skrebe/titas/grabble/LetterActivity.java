@@ -18,6 +18,7 @@ import android.widget.GridView;
 import com.skrebe.titas.grabble.adapters.GridViewAdapter;
 import com.skrebe.titas.grabble.adapters.SuggestionsArrayAdapter;
 import com.skrebe.titas.grabble.entities.WordScore;
+import com.skrebe.titas.grabble.helpers.DatabaseHelper;
 import com.skrebe.titas.grabble.helpers.Helper;
 import com.skrebe.titas.grabble.listeners.AutocompleteTextChangedListener;
 
@@ -130,7 +131,6 @@ public class LetterActivity extends AppCompatActivity {
         for (Map.Entry<String, Integer> e : mapWord.entrySet()){
             int charCount = e.getValue();
             if(mapDB.get(e.getKey()) < charCount){
-                Log.e("COUNT", e.getKey() + " " + mapDB.get(e.getKey()) + " " + charCount);
                 return false;
             }
         }

@@ -38,6 +38,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.kml.KmlLayer;
 import com.google.maps.android.kml.KmlPlacemark;
+import com.skrebe.titas.grabble.helpers.DatabaseHelper;
 import com.skrebe.titas.grabble.helpers.Helper;
 import com.skrebe.titas.grabble.helpers.PlaceMarkParser;
 import com.skrebe.titas.grabble.listeners.PopUpAnimationListener;
@@ -346,7 +347,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //if everything is OK with APP loop all points and check if any of them are within xx meters
         if (consistentState) {
-
             DatabaseHelper db = new DatabaseHelper(this);
             for (Map.Entry<String, Marker> e : markers.entrySet()) {
                 String name = e.getKey();
@@ -355,7 +355,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 markPosition.setLatitude(marker.getPosition().latitude);
                 markPosition.setLongitude(marker.getPosition().longitude);
                 float distance = location.distanceTo(markPosition);
-                if (distance <= 500) {
+                if (distance <= radius) {
                     marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_blue));
                     db.setLocationPointVisited(name, popUp, animation);
                 }

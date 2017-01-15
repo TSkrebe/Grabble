@@ -2,14 +2,17 @@ package com.skrebe.titas.grabble.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 
 import com.skrebe.titas.grabble.entities.WordScore;
 
 import org.apache.commons.collections4.trie.PatriciaTrie;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.SortedMap;
 
@@ -72,7 +75,7 @@ public class SuggestionsArrayAdapter extends ArrayAdapter<String> {
 
         private boolean enoughLetters(String word) {
             for (WordScore ws : letterCounts){
-                int count = word.length() - word.replaceAll(ws.getWord(), "").length();
+                int count = StringUtils.countMatches(word, ws.getWord());
                 if(count > ws.getScore()) return false;
             }
             return true;
@@ -82,6 +85,7 @@ public class SuggestionsArrayAdapter extends ArrayAdapter<String> {
         protected void publishResults(CharSequence constraint, FilterResults results) {
             List<String> filtered = (List<String>)results.values;
             if(results != null && results.count > 0) {
+                Collections.sort(filtered, String.CASE_INSENSITIVE_ORDER);
                 clear();
                 addAll(filtered);
                 notifyDataSetChanged();

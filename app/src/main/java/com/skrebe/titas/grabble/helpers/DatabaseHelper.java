@@ -1,4 +1,4 @@
-package com.skrebe.titas.grabble;
+package com.skrebe.titas.grabble.helpers;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.skrebe.titas.grabble.R;
 import com.skrebe.titas.grabble.entities.LetterEntity;
 import com.skrebe.titas.grabble.entities.LocationPointEntity;
 import com.skrebe.titas.grabble.entities.WordEntity;
