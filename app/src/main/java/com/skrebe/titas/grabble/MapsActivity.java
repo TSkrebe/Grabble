@@ -253,7 +253,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             String name = mark.getProperty("name");
             markers.put(name, marker);
         }
-        Log.e("befor", System.currentTimeMillis()-time+"");
+        Log.e("before", System.currentTimeMillis()-time+"");
 
         db.insertLocationPoints(markers);
         Log.e("after", System.currentTimeMillis()-time+"");
@@ -289,15 +289,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        Log.w("warning", "connected");
 
         //if user denied GPS permission
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ){
-            Log.w("warning", "connected2");
-
+            Log.w("GPS", "denied");
             return;
         }
-        Log.w("warning", "connected3");
+
         startLocationTracking();
         Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
@@ -319,7 +317,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.w("warning", "location");
+        Log.w("Location", location.toString());
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         int radius = Integer.parseInt(prefs.getString("game_difficulty", "15"));

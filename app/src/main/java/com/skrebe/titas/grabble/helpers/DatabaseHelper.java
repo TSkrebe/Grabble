@@ -205,19 +205,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return map;
     }
 
-    public String printalllettercount(){
-        String nicestr = "";
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + LetterEntity.TABLE_NAME, null);
-        while(cursor.moveToNext()){
-          //  Log.w();
-            nicestr += "letter: " + cursor.getString(0) + " " + cursor.getInt(1) + "\n";
-        }
-        cursor.close();
-        db.close();
-        return nicestr;
-    }
-
     public void addWord(String word, int score) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();

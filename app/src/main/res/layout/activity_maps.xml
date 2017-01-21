@@ -15,7 +15,7 @@
         android:onClick="letterActivity"
         android:padding="10dp"
         android:paddingEnd="10dp"
-        android:text="Add a word" />
+        android:text="@string/addWord" />
 
     <Button
         android:layout_width="110dp"
@@ -25,7 +25,7 @@
         android:layout_marginTop="70dp"
         android:padding="10dp"
         android:paddingEnd="10dp"
-        android:text="Statistics" />
+        android:text="@string/statistics" />
 
     <TextView
         android:id="@+id/letterView"
