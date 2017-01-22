@@ -25,6 +25,12 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
 
+/**
+ * CAREFUL!!!
+ * REMOVES ALL WORDS AND LETTERS THAT YOU HAVE COLLECTED
+ * REMOVES ALL WORDS AND LETTERS THAT YOU HAVE COLLECTED
+ * REMOVES ALL WORDS AND LETTERS THAT YOU HAVE COLLECTED
+ */
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class AddWordTest {
@@ -35,6 +41,9 @@ public class AddWordTest {
 
     @Test
     public void addWordTest() {
+
+
+        removeAllLettersAndWords();
 
         //try to add "sunburn" -> collect more letters
         tryToAddWord("sunburn", "Collect more letters");
@@ -63,6 +72,13 @@ public class AddWordTest {
                 .onChildView(withId(R.id.word))
                 .check(matches(withText(word))).perform(click());
     }
+
+    private void removeAllLettersAndWords(){
+        DatabaseHelper db = new DatabaseHelper(mActivityTestRule.getActivity().getApplicationContext());
+        db.removeAllLetters();
+        db.removeAllWords();
+    }
+
 
     private void addLetters(String sunburn) {
 

@@ -21,6 +21,7 @@ public class PermissionsActivity extends AppCompatActivity {
         Log.e(PermissionsActivity.class.toString(), "PERMISSION ACTIVITY");
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Log.e(PermissionsActivity.class.toString(), "NO PERMISSION");
             ActivityCompat.requestPermissions(this, new String[]{
                     android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_FINE_LOCATION);
         }else{

@@ -250,4 +250,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return list;
     }
+
+    public void removeAllLetters(){
+        SQLiteDatabase db = getWritableDatabase();
+        for(char a='a'; a <= 'z'; a++){
+            ContentValues cv = new ContentValues();
+            cv.put(LetterEntity.COLUMN_NAME_LETTER, a+"");
+            cv.put(LetterEntity.COLUMN_NAME_COUNT, 0);
+            db.update(LetterEntity.TABLE_NAME,
+                    cv,
+                    LetterEntity.COLUMN_NAME_LETTER + " = ?",
+                    new String[]{a+""});
+        }
+
+    }
+
+    public void removeAllWords(){
+        getWritableDatabase().delete(WordEntity.TABLE_NAME, null, null);
+    }
+
 }

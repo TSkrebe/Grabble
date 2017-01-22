@@ -17,6 +17,7 @@ import com.skrebe.titas.grabble.entities.WordScore;
 import com.skrebe.titas.grabble.helpers.DatabaseHelper;
 
 import java.util.List;
+import java.util.Locale;
 
 public class StatsActivity extends AppCompatActivity {
 
@@ -44,7 +45,7 @@ public class StatsActivity extends AppCompatActivity {
         float averagePerDay = (float)overall/noOfDays;
 
         TextView averageScore = (TextView) findViewById(R.id.averageScore);
-        averageScore.setText(averagePerWord+"");
+        averageScore.setText(String.format(Locale.ENGLISH, "%.2f", averagePerWord));
 
         TextView overallScore = (TextView) findViewById(R.id.overallScore);
         overallScore.setText(overall+ "");
@@ -56,7 +57,7 @@ public class StatsActivity extends AppCompatActivity {
         daysPlayed.setText(noOfDays+"");
 
         TextView averageDayScore = (TextView) findViewById(R.id.averageDayScore);
-        averageDayScore.setText(averagePerDay+"");
+        averageDayScore.setText(String.format(Locale.ENGLISH, "%.2f", averagePerDay));
 
 
     }
