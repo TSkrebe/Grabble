@@ -44,7 +44,6 @@ public class PermissionsActivity extends AppCompatActivity {
                     ActivityCompat.requestPermissions(this, new String[]{
                             android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_FINE_LOCATION);
                 }
-                return;
             }
 
         }
